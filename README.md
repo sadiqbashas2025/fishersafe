@@ -11,6 +11,19 @@ npm start
 
 Open `http://localhost:3000`.
 
+## Deploy to Vercel
+
+Import the repository in Vercel with the project root set to `fishersafe`, or run:
+
+```bash
+npx vercel
+npx vercel --prod
+```
+
+The included `vercel.json` exposes the Express frontend and API routes as a Vercel
+serverless function. The JSON database is suitable for this demo, but Vercel's filesystem
+is not persistent; use a hosted database before enabling production registration or writes.
+
 For phone testing on the same Wi-Fi, expose the server on the LAN and use HTTPS if your
 browser requires a secure context for geolocation. `localhost` is normally allowed.
 

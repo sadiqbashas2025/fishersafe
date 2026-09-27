@@ -14,11 +14,20 @@ const fishermanRoutes = require('./server/routes/fishermanRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const dbReady = db.initDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(async (req, res, next) => {
+  try {
+    await dbReady;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Serve frontend static files
 app.use(express.static(path.join(__dirname)));
@@ -50,7 +59,7 @@ app.use((req, res) => {
 // Initialize database and start server
 async function startServer() {
   try {
-    await db.initDB();
+    await dbReady;
     app.listen(PORT, () => {
       console.log('====================================================');
       console.log(`⚓ FisherSafe Maritime Safety Server is running!`);
@@ -69,4 +78,8 @@ async function startServer() {
   }
 }
 
-startServer();
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = app;
