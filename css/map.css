@@ -1,0 +1,389 @@
+/* ============================================================
+   FisherSafe — Map Styles
+   Leaflet map container, overlays, FABs, boat marker
+   ============================================================ */
+
+/* --- Map Container --- */
+#map-container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  background: #a8cfe8;
+}
+
+#leaflet-map {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* --- Leaflet overrides --- */
+.leaflet-control-zoom {
+  display: none; /* We use custom FABs */
+}
+
+.leaflet-control-attribution {
+  font-size: 0.55rem;
+  opacity: 0.6;
+  background: rgba(255,255,255,.7) !important;
+}
+
+/* --- Custom Boat Marker --- */
+.boat-marker-icon {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.boat-pulse-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(21, 101, 192, 0.5);
+  animation: boatPulse 2s ease-out infinite;
+}
+
+@keyframes boatPulse {
+  0%   { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.boat-icon-inner {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  border: 3px solid var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Warning Zone Markers --- */
+.leaflet-interactive.boundary-imbl {
+  stroke: #E91E63;
+  stroke-width: 3;
+  stroke-dasharray: 10 6;
+  fill: none;
+}
+
+.leaflet-interactive.boundary-warn {
+  stroke: #FF6F00;
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  fill: rgba(255, 111, 0, 0.06);
+}
+
+.leaflet-interactive.boundary-eez {
+  stroke: #00BCD4;
+  stroke-width: 2;
+  fill: rgba(0, 188, 212, 0.07);
+}
+
+/* --- Left side FABs --- */
+.map-fabs-left {
+  position: absolute;
+  left: 12px;
+  bottom: 16px;
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* --- Right side FABs --- */
+.map-fabs-right {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+/* --- FAB Button Base --- */
+.fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: var(--shadow-fab);
+  transition: transform var(--tr-fast), box-shadow var(--tr-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fab:active { transform: scale(0.9); }
+.fab:hover  { box-shadow: 0 6px 20px rgba(0,0,0,.5); }
+
+/* Specific FAB styles */
+.fab-sos {
+  background: radial-gradient(circle at 35% 35%, #FF5252, var(--sos-red));
+  color: white;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  width: 56px;
+  height: 56px;
+  animation: sosFabPulse 2s infinite;
+}
+
+@keyframes sosFabPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(198,40,40,.7), 0 0 0 0 rgba(198,40,40,.4); }
+  50% { box-shadow: 0 4px 20px rgba(198,40,40,.9), 0 0 0 8px rgba(198,40,40,.0); }
+}
+
+.fab-ok {
+  background: radial-gradient(circle at 35% 35%, #66BB6A, var(--safe-green));
+  color: white;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.fab-white {
+  background: white;
+  color: var(--grey-800);
+}
+
+.fab-navy {
+  background: var(--navy);
+  color: white;
+}
+
+.fab-orange {
+  background: linear-gradient(135deg, #FF9800, var(--warn-orange));
+  color: white;
+}
+
+/* Emoji FABs */
+.fab-emoji {
+  background: white;
+  font-size: 1.6rem;
+}
+
+/* --- FAB Tooltip --- */
+.fab[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.75);
+  color: white;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--tr-fast);
+  font-family: var(--font-primary);
+  font-weight: 500;
+}
+
+.fab[data-tip]:hover::before { opacity: 1; }
+
+/* Left FABs tooltip on right side */
+.map-fabs-left .fab[data-tip]::before {
+  left: calc(100% + 10px);
+  right: auto;
+}
+
+/* --- Locate / Center Button --- */
+.map-locate-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 16px;
+  z-index: 800;
+}
+
+.map-locate-btn .fab {
+  background: white;
+  color: var(--navy);
+  font-size: 1.3rem;
+}
+
+/* --- Map offline overlay --- */
+.map-offline-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 700;
+  background: rgba(245, 247, 250, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 32px;
+}
+
+.map-offline-overlay h3 {
+  font-size: 1.1rem;
+  color: var(--grey-800);
+}
+
+.map-offline-overlay p {
+  font-size: 0.85rem;
+  color: var(--grey-600);
+  line-height: 1.5;
+}
+
+/* --- Boundary distance badge (top of map) --- */
+.map-boundary-badge {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 800;
+  background: rgba(0, 35, 102, 0.85);
+  color: white;
+  border-radius: var(--r-full);
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.map-boundary-badge.warn {
+  background: rgba(230, 81, 0, 0.9);
+}
+
+.map-boundary-badge.danger {
+  background: rgba(183, 28, 28, 0.95);
+  animation: blinkWarn 1s infinite;
+}
+
+/* --- Speed + heading overlay (bottom of map) --- */
+.map-nav-overlay {
+  position: absolute;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 800;
+  background: rgba(0, 35, 102, 0.8);
+  color: white;
+  border-radius: var(--r-lg);
+  padding: 8px 20px;
+  display: flex;
+  gap: 24px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.map-nav-overlay .nav-item {
+  text-align: center;
+}
+
+.map-nav-overlay .nav-value {
+  font-size: 1.1rem;
+  display: block;
+}
+
+.map-nav-overlay .nav-label {
+  font-size: 0.6rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- Layers panel (slide-in) --- */
+.layers-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  background: white;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+  transform: translateX(-100%);
+  transition: transform var(--tr-med);
+  overflow-y: auto;
+}
+
+.layers-panel.open {
+  transform: translateX(0);
+}
+
+.layers-panel-header {
+  background: var(--navy);
+  color: white;
+  padding: 14px 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.layer-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.layer-toggle-row label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Toggle switch --- */
+.toggle-switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0; height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--grey-400);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background var(--tr-fast);
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  left: 3px; bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--tr-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-switch input:checked + .toggle-slider { background: var(--navy-light); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="FisherSafe — Offline Maritime Safety & India-Sri Lanka Boundary Alert System for Indian Fishermen" />
+  <meta name="theme-color" content="#002366" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>FisherSafe — Maritime Safety System</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/map.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/agentic.css" />
+</head>
+<body>
+  <!-- Desktop Background & Device Controller -->
+  <div class="mobile-viewport-backdrop" id="viewport-backdrop">
+    <div class="desktop-controls-bar">
+      <div class="app-brand-badge">
+        <span class="badge-icon">⚓</span>
+        <span class="badge-text">FisherSafe Mobile OS</span>
+      </div>
+      <div class="viewport-toggle-buttons">
+        <button class="view-mode-btn active" id="btn-mode-phone" onclick="toggleDeviceFrame(true)" title="Mobile Portrait Frame">📱 Portrait Phone</button>
+        <button class="view-mode-btn" id="btn-mode-full" onclick="toggleDeviceFrame(false)" title="Full Viewport">🖥️ Full Width</button>
+      </div>
+    </div>
+
+    <!-- Phone Bezel Shell -->
+    <div class="phone-device-frame" id="phone-frame">
+      <!-- Dynamic Island / Speaker Pill -->
+      <div class="phone-notch">
+        <div class="notch-speaker"></div>
+        <div class="notch-camera"></div>
+      </div>
+
+      <!-- App Root -->
+      <div id="app-root">
+        <!-- Page content rendered here by app.js -->
+        <div id="page-container"></div>
+
+        <!-- Network Status Indicator Banner -->
+        <div id="network-status-indicator" class="network-indicator hidden" role="status"></div>
+
+        <!-- Global Alert Toast -->
+        <div id="alert-toast" class="alert-toast hidden" role="alert" aria-live="assertive">
+          <div class="alert-toast-icon">⚠️</div>
+          <div class="alert-toast-body">
+            <div class="alert-toast-title" id="alert-title"></div>
+            <div class="alert-toast-msg" id="alert-msg"></div>
+          </div>
+          <button class="alert-toast-close" onclick="AppAlerts.dismissToast()" aria-label="Dismiss">✕</button>
+        </div>
+
+        <!-- Global Boundary Warning Banner -->
+        <div id="boundary-banner" class="boundary-banner hidden" role="alert">
+          <span id="boundary-banner-text"></span>
+          <button onclick="document.getElementById('boundary-banner').classList.add('hidden')" aria-label="Dismiss">✕</button>
+        </div>
+      </div>
+
+      <!-- Phone Home Indicator Bar -->
+      <div class="phone-home-indicator"></div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- App Scripts — load order matters -->
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/boundary.js"></script>
+  <script src="js/gps.js"></script>
+  <script src="js/marine-agents.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/logbook.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Viewport switcher for testing on desktop
+    function toggleDeviceFrame(isPhone) {
+      const frame = document.getElementById('phone-frame');
+      const btnPhone = document.getElementById('btn-mode-phone');
+      const btnFull = document.getElementById('btn-mode-full');
+      if (isPhone) {
+        frame.classList.remove('full-width-mode');
+        btnPhone.classList.add('active');
+        btnFull.classList.remove('active');
+      } else {
+        frame.classList.add('full-width-mode');
+        btnPhone.classList.remove('active');
+        btnFull.classList.add('active');
+      }
+      setTimeout(() => {
+        if (typeof AppMap !== 'undefined' && AppMap.invalidateSize) {
+          AppMap.invalidateSize();
+        }
+      }, 300);
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.log('SW error:', err));
+      });
+    }
+    // Boot the app
+    window.addEventListener('DOMContentLoaded', () => App.init());
+  </script>
+</body>
+</html>

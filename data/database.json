@@ -1,0 +1,247 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_001",
+      "fishermanId": "ADMIN001",
+      "fullName": "Maritime Safety Officer Raman",
+      "phone": "9840123456",
+      "email": "admin@fishersafe.gov.in",
+      "passwordHash": "$2b$10$/MUJko6Z0ZmXYofA9k.84euJMV1.1mKGOKFO00uG5pek21g.pqqbK",
+      "role": "admin",
+      "status": "active",
+      "boatId": "GOI-CG-OFFICIAL",
+      "homePort": "Chennai Fishing Harbor",
+      "emergencyContact": "HQ Maritime Surveillance",
+      "emergencyPhone": "1554",
+      "createdAt": 1787633954938,
+      "lastLoginAt": 1790222354938
+    },
+    {
+      "id": "usr_fish_001",
+      "fishermanId": "IND-TN-9821",
+      "fullName": "Murugan Selvam",
+      "phone": "9876543210",
+      "email": "murugan.selvam@tamilfisher.in",
+      "passwordHash": "$2b$10$9Go0yzaJ0m2pPwF3945mwe35DSKNKmecgJwTWvRn9hdc5uVNu9Ywi",
+      "role": "fisherman",
+      "status": "active",
+      "boatId": "TN-04-MM-1234",
+      "homePort": "Rameswaram",
+      "emergencyContact": "Anjali Murugan",
+      "emergencyPhone": "9841023456",
+      "createdAt": 1788929954938,
+      "lastLoginAt": 1790218754938
+    },
+    {
+      "id": "usr_fish_002",
+      "fishermanId": "IND-TN-4512",
+      "fullName": "Anthony Xavier",
+      "phone": "9443219876",
+      "email": "anthony.xavier@kanniyakumari.in",
+      "passwordHash": "$2b$10$9Go0yzaJ0m2pPwF3945mwe35DSKNKmecgJwTWvRn9hdc5uVNu9Ywi",
+      "role": "fisherman",
+      "status": "active",
+      "boatId": "TN-06-KK-5678",
+      "homePort": "Kanyakumari Harbor",
+      "emergencyContact": "Mary Xavier",
+      "emergencyPhone": "9443219870",
+      "createdAt": 1789361954938,
+      "lastLoginAt": 1790207954938
+    },
+    {
+      "id": "usr_fish_003",
+      "fishermanId": "IND-TN-7733",
+      "fullName": "Ramesh Perumal",
+      "phone": "9789012345",
+      "email": "ramesh.p@mandapam.in",
+      "passwordHash": "$2b$10$9Go0yzaJ0m2pPwF3945mwe35DSKNKmecgJwTWvRn9hdc5uVNu9Ywi",
+      "role": "fisherman",
+      "status": "disabled",
+      "boatId": "TN-05-MD-9012",
+      "homePort": "Mandapam Harbor",
+      "emergencyContact": "Lakshmi Perumal",
+      "emergencyPhone": "9789012340",
+      "createdAt": 1788497954938,
+      "lastLoginAt": 1790139554938
+    }
+  ],
+  "boats": [
+    {
+      "id": "boat_001",
+      "boatId": "TN-04-MM-1234",
+      "ownerFishermanId": "IND-TN-9821",
+      "ownerName": "Murugan Selvam",
+      "boatName": "Kadalarasan 1",
+      "boatType": "Motorized Trawler",
+      "homePort": "Rameswaram",
+      "registrationStatus": "verified",
+      "lastLocation": {
+        "lat": 9.32,
+        "lon": 79.51,
+        "timestamp": 1790225054938
+      },
+      "emergencyStatus": "safe",
+      "createdAt": 1788929954938
+    },
+    {
+      "id": "boat_002",
+      "boatId": "TN-06-KK-5678",
+      "ownerFishermanId": "IND-TN-4512",
+      "ownerName": "Anthony Xavier",
+      "boatName": "St. Mary Deep Sea",
+      "boatType": "Gillnetter",
+      "homePort": "Kanyakumari Harbor",
+      "registrationStatus": "verified",
+      "lastLocation": {
+        "lat": 8.45,
+        "lon": 78.12,
+        "timestamp": 1790224154938
+      },
+      "emergencyStatus": "safe",
+      "createdAt": 1789361954938
+    },
+    {
+      "id": "boat_003",
+      "boatId": "TN-05-MD-9012",
+      "ownerFishermanId": "IND-TN-7733",
+      "ownerName": "Ramesh Perumal",
+      "boatName": "Meenatchi",
+      "boatType": "Traditional Country Craft",
+      "homePort": "Mandapam Harbor",
+      "registrationStatus": "suspended",
+      "lastLocation": {
+        "lat": 9.28,
+        "lon": 79.12,
+        "timestamp": 1790139554938
+      },
+      "emergencyStatus": "safe",
+      "createdAt": 1788497954938
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alt_001",
+      "alertId": "ALT-2026-001",
+      "fishermanId": "IND-TN-9821",
+      "boatId": "TN-04-MM-1234",
+      "alertType": "warning_early",
+      "alertStatus": "Resolved",
+      "distanceKm": 42.5,
+      "location": {
+        "lat": 9.3512,
+        "lon": 79.4891
+      },
+      "timestamp": 1790207954938,
+      "acknowledged": true,
+      "acknowledgedBy": "ADMIN001",
+      "acknowledgedAt": 1790211554938,
+      "notes": "Vessel turned back southwest towards Rameswaram."
+    },
+    {
+      "id": "alt_002",
+      "alertId": "ALT-2026-002",
+      "fishermanId": "IND-TN-4512",
+      "boatId": "TN-06-KK-5678",
+      "alertType": "warning_strong",
+      "alertStatus": "Warning",
+      "distanceKm": 18.2,
+      "location": {
+        "lat": 9.182,
+        "lon": 79.521
+      },
+      "timestamp": 1790224154938,
+      "acknowledged": true,
+      "acknowledgedBy": "ADMIN001",
+      "acknowledgedAt": 1790225054938,
+      "notes": "Warning beacon broadcast on VHF Channel 16."
+    },
+    {
+      "id": "alt_003",
+      "alertId": "ALT-2026-003",
+      "fishermanId": "IND-TN-9821",
+      "boatId": "TN-04-MM-1234",
+      "alertType": "critical_boundary",
+      "alertStatus": "Critical",
+      "distanceKm": 4.8,
+      "location": {
+        "lat": 9.31,
+        "lon": 79.79
+      },
+      "timestamp": 1790225354938,
+      "acknowledged": false,
+      "acknowledgedBy": null,
+      "acknowledgedAt": null,
+      "notes": "Active proximity alarm triggered in Palk Strait sector."
+    }
+  ],
+  "emergencies": [
+    {
+      "id": "emg_001",
+      "emergencyId": "SOS-2026-089",
+      "fishermanId": "IND-TN-9821",
+      "boatId": "TN-04-MM-1234",
+      "emergencyType": "MAYDAY",
+      "coords": {
+        "lat": 9.321,
+        "lon": 79.52
+      },
+      "status": "Acknowledged",
+      "timestamp": 1790223554938,
+      "acknowledgedAt": 1790224154938,
+      "resolvedAt": null,
+      "adminNotes": "Coast Guard Mandapam station alerted. Interceptor vessel dispatched.",
+      "resolvedBy": null
+    },
+    {
+      "id": "emg_002",
+      "emergencyId": "SOS-2026-088",
+      "fishermanId": "IND-TN-4512",
+      "boatId": "TN-06-KK-5678",
+      "emergencyType": "PAN-PAN",
+      "coords": {
+        "lat": 8.52,
+        "lon": 78.31
+      },
+      "status": "Resolved",
+      "timestamp": 1790053154938,
+      "acknowledgedAt": 1790053754938,
+      "resolvedAt": 1790060354938,
+      "adminNotes": "Engine failure resolved by nearby fishing vessel towing back to harbor.",
+      "resolvedBy": "ADMIN001"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud_001",
+      "adminId": "ADMIN001",
+      "adminName": "Maritime Safety Officer Raman",
+      "action": "SYSTEM_INITIALIZATION",
+      "targetType": "SYSTEM",
+      "targetId": "CONFIG",
+      "details": "System initialized with UNCLOS authoritative maritime boundary data.",
+      "timestamp": 1787633954938,
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "aud_002",
+      "adminId": "ADMIN001",
+      "adminName": "Maritime Safety Officer Raman",
+      "action": "ACCOUNT_DEACTIVATED",
+      "targetType": "USER",
+      "targetId": "IND-TN-7733",
+      "details": "Account deactivated pending boat fitness certificate renewal.",
+      "timestamp": 1790139554938,
+      "ipAddress": "127.0.0.1"
+    }
+  ],
+  "systemConfig": {
+    "systemStatus": "OPERATIONAL",
+    "maintenanceMode": false,
+    "boundaryDataSource": "UNCLOS 1974 & 1976 Bilateral Maritime Boundary Agreements (Authoritative Public Coordinates)",
+    "safetyZoneBufferKm": {
+      "early": 50,
+      "strong": 20,
+      "critical": 5
+    }
+  }
+}
